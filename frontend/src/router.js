@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Service from '@/components/Service'
+import Goods from '@/components/Service'
 import Bootstrap from '@/components/Bootstrap'
 import User from '@/components/User'
 
@@ -9,15 +9,17 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+      //订单管理
     {
       path: '/',
       name: 'Hello',
       component: Hello
     },
+      //菜品管理
     {
-      path: '/callservice',
-      name: 'Service',
-      component: Service
+      path: '/goods',
+      name: 'Goods',
+      component: Goods
     },
     {
       path: '/bootstrap',
