@@ -1,13 +1,18 @@
 <template>
-    <div class="custom-tree-container">
-        <div class="block">
-            <p>使用 scoped slot</p>
-            <el-tree
-                    :data="data"
-                    show-checkbox
-                    node-key="id"
-                    default-expand-all
-                    :expand-on-click-node="false">
+    <div>
+        <el-row>
+            <router-link to="/Newmission">
+            <el-button type="primary" plain>新建项目</el-button>
+            </router-link>
+        </el-row>
+        <div class="custom-tree-container">
+            <div class="block">
+                <el-tree
+                        :data="data"
+                        show-checkbox
+                        node-key="id"
+                        default-expand-all
+                        :expand-on-click-node="false">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
@@ -25,10 +30,10 @@
           </el-button>
         </span>
       </span>
-            </el-tree>
+                </el-tree>
+            </div>
         </div>
     </div>
-
 
 </template>
 
@@ -79,7 +84,7 @@
 
         methods: {
             append(data) {
-                const newChild = { id: id++, label: 'testtest', children: [] };
+                const newChild = {id: id++, label: 'testtest', children: []};
                 if (!data.children) {
                     this.$set(data, 'children', []);
                 }
@@ -99,21 +104,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    h1, h2 {
-        font-weight: normal;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-
-    a {
-        color: #42b983;
+    .custom-tree-container{
+        margin-top: 20px;
     }
 </style>

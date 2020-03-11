@@ -19,38 +19,31 @@
                     @close="handleClose"
                     background-color="#f2f2f2"
                     text-color="#000"
-                    active-text-color="#ffd04b">
+                    active-text-color="#128FDC" router>
                 <div class="modeldiv">
                     <img src="./assets/model.png" alt=""/>
                     <p>模型训练</p>
                 </div>
-                <el-menu-item index="2">
+                <el-menu-item index="/">
                     <i class="el-icon-menu"></i>
                     <span slot="title">总览</span>
                 </el-menu-item>
-                <el-submenu index="1">
+                <el-submenu index="/callservice">
                     <template slot="title">
                         <i class="el-icon-location"></i>
                         <span>训练</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="1-1">选项1</el-menu-item>
-                        <el-menu-item index="1-2">选项2</el-menu-item>
+                        <el-menu-item index="/bootstrap">选项1</el-menu-item>
+                        <el-menu-item index="/user">选项2</el-menu-item>
+                        <el-menu-item index="/callservice">选项3</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
             </el-menu>
 
             <div id="nav">
-                <router-link to="/">Hello</router-link>
-                |
-                <router-link to="/callservice">Service</router-link>
-                |
-                <router-link to="/bootstrap">Bootstrap</router-link>
-                |
-                <router-link to="/user">User</router-link>
-                <br>
-                <router-view :hellomsg="msg"></router-view>
+                <router-view></router-view>
             </div>
 
         </el-container>
@@ -113,5 +106,8 @@
     html, body, #app, .el-container {
         height: 100%;
         overflow: hidden;
+    }
+    #nav{
+        margin:20px;
     }
 </style>

@@ -4,8 +4,9 @@ import Hello from '@/components/Hello'
 import Service from '@/components/Service'
 import Bootstrap from '@/components/Bootstrap'
 import User from '@/components/User'
+import Newmission from '@/components/Newmission'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -28,6 +29,11 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      path: '/newmission',
+      name: 'Newmission',
+      component: Newmission
     }
   ]
 })
