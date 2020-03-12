@@ -1,7 +1,7 @@
-package de.jonashackt.springbootvuejs.controller;
+package com.meiya.miamodel.controller;
 
-import de.jonashackt.springbootvuejs.SpringBootVuejsApplication;
-import de.jonashackt.springbootvuejs.domain.User;
+import com.meiya.miamodel.SpringBootVuejsApplication;
+import com.meiya.miamodel.domain.User;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.Before;

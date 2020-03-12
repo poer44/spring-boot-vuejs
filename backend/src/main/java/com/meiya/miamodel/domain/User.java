@@ -1,4 +1,4 @@
-package de.jonashackt.springbootvuejs.domain;
+package com.meiya.miamodel.domain;
 
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
-package de.jonashackt.springbootvuejs.repository;
+package com.meiya.miamodel.repository;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import com.meiya.miamodel.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

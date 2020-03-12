@@ -1,7 +1,7 @@
-package de.jonashackt.springbootvuejs.controller;
+package com.meiya.miamodel.controller;
 
-import de.jonashackt.springbootvuejs.domain.User;
-import de.jonashackt.springbootvuejs.repository.UserRepository;
+import com.meiya.miamodel.domain.User;
+import com.meiya.miamodel.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
