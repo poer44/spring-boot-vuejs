@@ -1,16 +1,14 @@
 package com.meiya.miamodel.repository;
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.meiya.miamodel.domain.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
-public interface UserRepository extends CrudRepository<User, Long> {
-
-    List<User> findByLastName(@Param("lastname") String lastname);
-
-    List<User> findByFirstName(@Param("firstname") String firstname);
+/**
+ * @author xuebw
+ */
+@Mapper
+public interface UserRepository extends BaseMapper<User> {
 
 }

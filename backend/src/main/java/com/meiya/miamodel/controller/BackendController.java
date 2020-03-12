@@ -29,17 +29,15 @@ public class BackendController {
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody long addNewUser (@RequestParam String firstName, @RequestParam String lastName) {
         User user = new User(firstName, lastName);
-        userRepository.save(user);
-
+        userRepository.insert(user);
         LOG.info(user.toString() + " successfully saved into DB");
-
         return user.getId();
     }
 
     @GetMapping(path="/user/{id}")
     public @ResponseBody User getUserById(@PathVariable("id") long id) {
         LOG.info("Reading user with id " + id + " from database.");
-        return userRepository.findById(id).get();
+        return userRepository.selectById(id);
     }
 
 }
