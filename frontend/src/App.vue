@@ -86,7 +86,6 @@
 
     .modeldiv {
         text-align: center;
-
         img {
             width: 150px;
             height: 150px;
@@ -102,7 +101,6 @@
         min-width: 200px;
         height: 100%;
     }
-
     html, body, #app, .el-container {
         height: 100%;
         overflow: hidden;

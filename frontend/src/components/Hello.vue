@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row>
-            <router-link to="/Newmission">
+            <router-link to="/Newproject">
             <el-button type="primary" plain>新建项目</el-button>
             </router-link>
         </el-row>
