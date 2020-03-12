@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.jonashackt</groupId>
-	<artifactId>spring-boot-vuejs</artifactId>
+	<groupId>com.meiya</groupId>
+	<artifactId>miamodel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>spring-boot-vuejs</name>
-	<description>Demo project for Spring Boot</description>
+	<name>miamodel</name>
+	<description>miamodel</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -25,7 +25,7 @@
 		<build-plugin.jacoco.version>0.8.2</build-plugin.jacoco.version>
 		<build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>
     </properties>
-	
+
 	<modules>
         <module>frontend</module>
         <module>backend</module>
