@@ -55,11 +55,8 @@
 
     export default {
         name: 'app',
-        data() {
-            return {
-                msg: 'Welcome to your Vue.js powered Spring Boot App'
-            }
-        }, methods: {
+        data() {},
+        methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
             },
@@ -71,41 +68,6 @@
 </script>
 
 <style lang="scss">
-    .logodiv {
-        img {
-            width: 45px;
-            height: 50px;
-        }
 
-        span {
-            color: white;
-        }
 
-        margin-left: 20px;
-    }
-
-    .modeldiv {
-        text-align: center;
-        img {
-            width: 150px;
-            height: 150px;
-        }
-
-        p {
-            color: black;
-            font-size: 30px;
-        }
-    }
-
-    .left {
-        min-width: 200px;
-        height: 100%;
-    }
-    html, body, #app, .el-container {
-        height: 100%;
-        overflow: hidden;
-    }
-    #nav{
-        margin:20px;
-    }
 </style>

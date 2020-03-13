@@ -1,0 +1,40 @@
+.logodiv {
+  img {
+    width: 45px;
+    height: 50px;
+  }
+
+  span {
+    color: white;
+  }
+
+  margin-left: 20px;
+}
+
+.modeldiv {
+  text-align: center;
+
+  img {
+    width: 140px;
+    height: 150px;
+  }
+
+  p {
+    color: black;
+    font-size: 30px;
+  }
+}
+
+.left {
+  min-width: 200px;
+  height: 100%;
+}
+
+html, body, #app, .el-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+#nav {
+  margin: 20px;
+}

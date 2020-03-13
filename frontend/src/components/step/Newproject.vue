@@ -16,7 +16,8 @@
                              :style="projectForm.type===1?'border: 2px #439fe6 solid;':''">
                             <img src="../../assets/icon/img.png" alt="" class="icon"/>
                             <p>图像分类</p>
-                            <img src="../../assets/icon/checker.png" alt="" class="checker" v-if="projectForm.type===1"/>
+                            <img src="../../assets/icon/checker.png" alt="" class="checker"
+                                 v-if="projectForm.type===1"/>
                         </div>
                     </el-col>
                     <el-col :span="12">
@@ -24,7 +25,8 @@
                              :style="projectForm.type===2?'border: 2px #439fe6 solid;':''">
                             <img src="../../assets/icon/point.png" alt="" class="icon"/>
                             <p>目标检测</p>
-                            <img src="../../assets/icon/checker.png" alt="" class="checker" v-if="projectForm.type===2"/>
+                            <img src="../../assets/icon/checker.png" alt="" class="checker"
+                                 v-if="projectForm.type===2"/>
                         </div>
                     </el-col>
                 </el-row>
@@ -60,9 +62,8 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        this.$router.push({path: '/newMission'});
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -73,40 +74,5 @@
 
 
 <style lang="scss">
-    .maindiv {
-        padding: 40px;
-        width: 100%;
-
-        .form {
-            width: 700px;
-        }
-    }
-
-    .selector {
-        width: 150px;
-        height: 150px;
-        border: 2px #dcdfe6 solid;
-        border-radius: 5px;
-        text-align: center;
-        position: relative;
-
-        .icon {
-            padding: 10px 10px 0 10px;
-            width: 110px;
-            height: 90px;
-        }
-
-        .checker {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-        }
-
-        p {
-            font-size: 20px;
-            padding-top: 0;
-        }
-    }
+    @import "../../assets/style/main.scss";
 </style>
