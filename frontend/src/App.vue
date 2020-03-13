@@ -55,7 +55,6 @@
 
     export default {
         name: 'app',
-        data() {},
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -68,6 +67,6 @@
 </script>
 
 <style lang="scss">
-
+    @import "./assets/style/app.scss";
 
 </style>

@@ -2,7 +2,7 @@ package com.meiya.miamodel.repository;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.meiya.miamodel.domain.User;
+import com.meiya.miamodel.domain.Mission;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface UserRepository extends BaseMapper<User> {
+public interface MissionRepository extends BaseMapper<Mission> {
 
 }

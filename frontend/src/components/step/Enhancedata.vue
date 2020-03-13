@@ -62,7 +62,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$router.push({path: '/newMission'});
+                        this.$router.push({path: '/parameters'});
                     } else {
                         return false;
                     }
