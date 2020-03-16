@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        pid: ''
+        pid: '',
+        mid:''
     },
     mutations: {
         setpid (state,data) {
             state.pid=data;
+        },
+        setmid (state,data) {
+            state.mid=data;
         }
     }
 })

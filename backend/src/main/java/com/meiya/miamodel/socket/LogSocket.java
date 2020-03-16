@@ -55,7 +55,6 @@ public class LogSocket {
         this.mid = mid;
         websocket.add(this);     //加入set中
         // addOnlineCount();           //在线数加1
-        System.out.println("进入onOpen方法");
         try {
             sendMessage("连接已建立成功.");
         } catch (Exception e) {
@@ -88,8 +87,9 @@ public class LogSocket {
      * 给客户端推送信息
      */
     public void sendMessage(String message) throws IOException {
-        System.out.println("进入sendMessage方法");
-        this.session.getBasicRemote().sendText(message);
+        synchronized(session) {
+            this.session.getBasicRemote().sendText(message);
+        }
     }
 
     /**

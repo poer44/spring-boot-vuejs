@@ -17,12 +17,14 @@
 </template>
 
 <script>
+    import {AXIOS} from '../http-common'
     export default {
         data() {
             return {
                 missionForm: {
                     name: '',
-                    desc: ''
+                    desc: '',
+                    pid: ''
                 },
                 rules: {
                     name: [
@@ -38,6 +40,25 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        if(this.$route.params.pid){
+                            this.$store.commit('setpid',this.$route.params.pid);
+                        }
+                        this.missionForm.pid=this.$store.state.pid;
+                        //存储
+                        AXIOS.post(`/mission/add`,
+                            this.missionForm
+                        )
+                            .then(response => {
+                                this.$store.commit('setmid', response.data);
+                                this.$notify({
+                                    title: '新任务创建成功！',
+                                    message: '请继续接下来的步骤！',
+                                    type: 'success'
+                                });
+                            })
+                            .catch(e => {
+                                console.error(e);
+                            })
                         this.$router.push({path: '/addData'});
                     } else {
                         return false;
@@ -49,6 +70,6 @@
 </script>
 
 
-<style  lang="scss">
+<style lang="scss">
     @import "../../assets/style/main.scss";
 </style>

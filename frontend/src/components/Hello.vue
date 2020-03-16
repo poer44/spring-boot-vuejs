@@ -9,7 +9,6 @@
                 :data="resultdata"
                 style="width: 100%"
                 row-key="id"
-                border
                 lazy
                 :load="load"
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
@@ -33,10 +32,19 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    prop="desc"
+                    label="描述"
+                    sortable>
+            </el-table-column>
+            <el-table-column
                     label="操作">
                 <template slot-scope="scope">
                     <span v-if="(scope.row.id+'').indexOf('m')!==-1">
-                        <router-link :to="{name:'Logview',params:{mid:'777'}}">查看日志</router-link>
+                        &emsp;<i class="el-icon-pie-chart"></i>
+                        <router-link :to="{name:'Logview',params:{mid:scope.row.id.substring(1)}}">查看日志</router-link>
+                    </span>
+                    <span v-if="(scope.row.id+'').indexOf('m')===-1">
+                        <router-link :to="{name:'Newmission',params:{pid:scope.row.id}}">新建任务</router-link>
                     </span>
                 </template>
             </el-table-column>

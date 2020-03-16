@@ -3,7 +3,7 @@
         <h2>日志查看</h2>
         <hr/>
         <div class="logdiv">
-        <span>{{text}}</span>
+        <span v-html="text"></span>
         </div>
     </div>
 </template>
@@ -22,8 +22,9 @@
             // 响应onmessage事件:
             ws.onmessage = function (msg) {
                 _this.text += msg.data;
+                const div = document.getElementsByClassName('logdiv')[0];
+                div.scrollTop = div.scrollHeight;
             };
-
         }
     }
 </script>
