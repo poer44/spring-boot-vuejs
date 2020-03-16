@@ -8,23 +8,16 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 项目pojo
+ * 数据集pojo
  *
  * @author xuebw
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Project {
-
+public class Datas {
     private long id;
     private String name;
-    @TableField("`desc`")
-    private String desc;
+    private String path;
     private Date crtm;
-    private int type;
-    @TableField(exist = false)
-    private String typeName;
-    @TableField(exist = false)
-    private boolean hasChildren;
 }

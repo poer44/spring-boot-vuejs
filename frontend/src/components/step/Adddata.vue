@@ -21,19 +21,27 @@
 </template>
 
 <script>
+    import {AXIOS} from '../http-common'
     export default {
         data() {
             const generateData = _ => {
                 const data = [];
-                const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都'];
-                const pinyin = ['shanghai', 'beijing', 'guangzhou', 'shenzhen', 'nanjing', 'xian', 'chengdu'];
-                cities.forEach((city, index) => {
-                    data.push({
-                        label: city,
-                        key: index,
-                        pinyin: pinyin[index]
-                    });
-                });
+                AXIOS.get(`/datas`)
+                    .then(response => {
+                        let datas=response.data;
+                        datas.forEach((_d, index) => {
+                            data.push({
+                                label: _d.name,
+                                key: _d.id,
+                                pinyin: _d.path
+                            });
+                        })
+                        return data;
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+
                 return data;
             };
             return {

@@ -25,7 +25,12 @@
             </el-table-column>
             <el-table-column
                     prop="crtm"
-                    label="日期">
+                    label="日期"
+                    sortable>
+                <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ dayparse(new Date(scope.row.crtm)) }}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     label="操作">
@@ -35,10 +40,10 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page.sync="this.response.current"
+                    :current-page.sync="response.current"
                     :page-size="10"
                     layout="total, prev, pager, next"
-                    :total="this.response.total">
+                    :total="response.total">
             </el-pagination>
         </div>
     </div>
@@ -52,9 +57,9 @@
     let id = 1;
     export default {
         data() {
-            var response = [];
             var resultdata = [];
             return {
+                response: {current: 0, total: 0},
                 resultdata: JSON.parse(JSON.stringify(resultdata))
             }
         },
@@ -67,7 +72,9 @@
                 }
                 data.children.push(newChild);
             },
-
+            dayparse(str) {
+                return dayjs(new Date(str)).format('YYYY-MM-DD HH:mm:ss');
+            },
             remove(node, data) {
                 const parent = node.parent;
                 const children = parent.data.children || parent.data;
@@ -75,21 +82,18 @@
                 children.splice(index, 1);
             },
             load(tree, treeNode, resolve) {
-                setTimeout(() => {
-                    resolve([
-                        {
-                            id: 31,
-                            date: '2016-05-01',
-                            name: '王小虎',
-                            address: '上海市普陀区金沙江路 1519 弄'
-                        }, {
-                            id: 32,
-                            date: '2016-05-01',
-                            name: '王小虎',
-                            address: '上海市普陀区金沙江路 1519 弄'
+                AXIOS.get(`/mission/` + tree.id)
+                    .then(response => {
+                        //处理数据
+                        for (let i = 0; i < response.data.length; i++) {
+                            response.data[i].hasChildren = false;
+                            response.data[i].id = 'm' + this.resultdata[i].id;
                         }
-                    ])
-                }, 1000)
+                        resolve(response.data)
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
             },
             getProjectData() {
                 AXIOS.get(`/project`)
@@ -113,10 +117,13 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             }
-        }, mounted() {
+        }
+        ,
+        mounted() {
             this.getProjectData();
         }
-    };
+    }
+    ;
 </script>
 
 

@@ -1,25 +1,20 @@
 <template>
   <div class="user">
-    <h1>Create User</h1>
-
-    <h3>Just some database interaction...</h3>
-
-    <input type="text" v-model="user.firstName" placeholder="first name">
-    <input type="text" v-model="user.lastName" placeholder="last name">
-
-    <button @click="createUser()">Create User</button>
-
-    <div v-if="showResponse"><h6>User created with Id: {{ response }}</h6></div>
-
-    <button v-if="showResponse" @click="retrieveUser()">Retrieve user {{user.id}} data from database</button>
-
-    <h4 v-if="showRetrievedUser">Retrieved User {{retrievedUser.firstName}} {{retrievedUser.lastName}}</h4>
+    <h1>数据集上传</h1>
+    <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple>
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
 
   </div>
 </template>
 
 <script>
-  // import axios from 'axios'
   import {AXIOS} from './http-common'
 
   export default {

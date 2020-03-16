@@ -34,9 +34,8 @@
                         <span>训练</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="/bootstrap">选项1</el-menu-item>
-                        <el-menu-item index="/user">选项2</el-menu-item>
-                        <el-menu-item index="/callservice">选项3</el-menu-item>
+                        <el-menu-item index="/bootstrap">模型管理</el-menu-item>
+                        <el-menu-item index="/user">数据集上传</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
