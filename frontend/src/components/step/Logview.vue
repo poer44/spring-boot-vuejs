@@ -9,8 +9,6 @@
 </template>
 
 <script>
-
-
     export default {
         data() {
             return {
@@ -20,11 +18,12 @@
         mounted() {
             const _this=this;
             // 打开一个WebSocket
-            var ws = new WebSocket('ws://localhost:8044/logsocket/'+ this.$route.params.mid);
+            var ws = new WebSocket('ws://'+window.document.domain+':8044/logsocket/'+ this.$route.params.mid);
             // 响应onmessage事件:
             ws.onmessage = function (msg) {
                 _this.text += msg.data;
             };
+
         }
     }
 </script>

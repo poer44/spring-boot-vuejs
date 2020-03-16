@@ -69,6 +69,7 @@
                             this.projectForm
                         )
                             .then(response => {
+                                this.$store.commit('setpid',response.data);
                                 this.$notify({
                                     title: '新项目创建成功！',
                                     message: '请继续接下来的步骤！',

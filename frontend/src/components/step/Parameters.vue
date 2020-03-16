@@ -81,7 +81,6 @@
             AXIOS.get(`/nets`)
                 .then(response => {
                         _this.netoptions = response.data;
-                        debugger
                     }
                 )
                 .catch(e => {
