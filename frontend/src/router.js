@@ -9,6 +9,7 @@ import Newproject from '@/components/step/Newproject'
 import Adddata from '@/components/step/Adddata'
 import Enhancedata from '@/components/step/Enhancedata'
 import Parameters from '@/components/step/Parameters'
+import Logview from '@/components/step/Logview'
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
             path: '/parameters',
             name: 'Parameters',
             component: Parameters
+        },
+        {
+            path: '/logview/:mid',
+            name: 'Logview',
+            component: Logview
         }
     ]
 })

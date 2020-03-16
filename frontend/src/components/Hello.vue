@@ -34,6 +34,11 @@
             </el-table-column>
             <el-table-column
                     label="操作">
+                <template slot-scope="scope">
+                    <span v-if="(scope.row.id+'').indexOf('m')!==-1">
+                        <router-link :to="{name:'Logview',params:{mid:'777'}}">查看日志</router-link>
+                    </span>
+                </template>
             </el-table-column>
         </el-table>
         <div class="block">
@@ -41,7 +46,7 @@
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page.sync="response.current"
-                    :page-size="10"
+                    :page-size="response.size"
                     layout="total, prev, pager, next"
                     :total="response.total">
             </el-pagination>
@@ -59,7 +64,7 @@
         data() {
             var resultdata = [];
             return {
-                response: {current: 0, total: 0},
+                response: {current: 1, total: 0, size: 10},
                 resultdata: JSON.parse(JSON.stringify(resultdata))
             }
         },
@@ -74,6 +79,8 @@
             },
             dayparse(str) {
                 return dayjs(new Date(str)).format('YYYY-MM-DD HH:mm:ss');
+            }, indexOf(str, search) {
+                return str.indexOf(search);
             },
             remove(node, data) {
                 const parent = node.parent;
@@ -92,21 +99,23 @@
                         resolve(response.data)
                     })
                     .catch(e => {
-                        this.errors.push(e)
+                        console.error(e);
                     })
             },
             getProjectData() {
-                AXIOS.get(`/project`)
+                const _this = this;
+                AXIOS.get(`/project`, {
+                    params: {
+                        current: _this.response.current,
+                        size: _this.response.size
+                    }
+                })
                     .then(response => {
                         this.response = response.data;
                         this.resultdata = response.data.records;
-                        //处理数据
-                        for (let i = 0; i < this.resultdata.length; i++) {
-                            this.resultdata[i].hasChildren = true;
-                        }
                     })
                     .catch(e => {
-                        this.errors.push(e)
+                        console.error(e);
                     })
             }
             ,
@@ -115,7 +124,7 @@
             }
             ,
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.getProjectData();
             }
         }
         ,

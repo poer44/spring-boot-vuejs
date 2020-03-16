@@ -39,7 +39,7 @@
                         return data;
                     })
                     .catch(e => {
-                        this.errors.push(e)
+                        console.error(e);
                     })
 
                 return data;

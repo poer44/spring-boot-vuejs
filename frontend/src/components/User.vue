@@ -1,6 +1,7 @@
 <template>
-  <div class="user">
-    <h1>数据集上传</h1>
+  <div class="maindiv">
+    <h2>数据集上传</h2>
+    <hr />
     <el-upload
             class="upload-demo"
             drag
@@ -50,7 +51,7 @@
             this.showResponse = true
           })
           .catch(e => {
-            this.errors.push(e)
+            console.error(e);
           })
       },
       retrieveUser () {
@@ -62,7 +63,7 @@
             this.showRetrievedUser = true
           })
           .catch(e => {
-            this.errors.push(e)
+            console.error(e);
           })
       }
     }
@@ -71,23 +72,7 @@
 </script>
 
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
+<style  lang="scss">
+  @import "../assets/style/main.scss";
 </style>
+

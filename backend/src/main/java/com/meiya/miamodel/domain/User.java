@@ -1,5 +1,7 @@
 package com.meiya.miamodel.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("users")
 public class User {
-
+    @TableId(type= IdType.AUTO)
     private long id;
     private String firstName;
     private String lastName;

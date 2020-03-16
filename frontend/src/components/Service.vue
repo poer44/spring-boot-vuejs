@@ -34,7 +34,7 @@
             console.log(response.data)
           })
           .catch(e => {
-            this.errors.push(e)
+            console.error(e);
           })
       }
     }

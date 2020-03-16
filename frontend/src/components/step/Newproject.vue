@@ -40,6 +40,8 @@
 
 
 <script>
+    import {AXIOS} from '../http-common'
+
     export default {
         data() {
             return {
@@ -62,7 +64,22 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        //存储
+                        AXIOS.post(`/project/add`,
+                            this.projectForm
+                        )
+                            .then(response => {
+                                this.$notify({
+                                    title: '新项目创建成功！',
+                                    message: '请继续接下来的步骤！',
+                                    type: 'success'
+                                });
+                            })
+                            .catch(e => {
+                                console.error(e);
+                            })
                         this.$router.push({path: '/newMission'});
+
                     } else {
                         return false;
                     }

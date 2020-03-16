@@ -4,7 +4,14 @@
         <hr/>
         <el-form :model="parametersForm" :rules="rules" ref="parametersForm" label-width="150px" class="form">
             <el-form-item label="网络选择" prop="net">
-                <el-input v-model="parametersForm.net"></el-input>
+                <el-select v-model="parametersForm.net" placeholder="请选择网络">
+                    <el-option
+                            v-for="item in netoptions"
+                            :key="item.id"
+                            :label="item.cnname"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="训练轮数Epochs" prop="epochs">
                 <el-input v-model="parametersForm.epochs"></el-input>
@@ -27,6 +34,8 @@
 
 
 <script>
+    import {AXIOS} from '../http-common'
+
     export default {
         data() {
             return {
@@ -53,7 +62,8 @@
                     gpuid: [
                         {required: true, message: '请填写显卡设备号', trigger: 'blur'}
                     ]
-                }
+                },
+                netoptions: []
             };
         },
         methods: {
@@ -66,6 +76,17 @@
                     }
                 });
             }
+        }, mounted() {
+            const _this = this;
+            AXIOS.get(`/nets`)
+                .then(response => {
+                        _this.netoptions = response.data;
+                        debugger
+                    }
+                )
+                .catch(e => {
+                    console.error(e);
+                })
         }
     }
 </script>
