@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectRepository extends BaseMapper<Project> {
 
-    @Select(" SELECT * FROM project p left join project_type t on p.type = t.id")
+    @Select("SELECT * FROM project p left join project_type t on p.type = t.id order by p.crtm desc")
     IPage<Project> selectPageVo(Page page);
 
 }

@@ -33,7 +33,7 @@
                             data.push({
                                 label: _d.name,
                                 key: _d.id,
-                                pinyin: _d.path
+                                pinyin: _d.name
                             });
                         })
                         return data;
@@ -61,8 +61,11 @@
         },
         methods: {
             submitForm(formName) {
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        //存储
+                        this.$store.commit('setmretail',{dids:JSON.stringify(this.dataForm.datachose)});
                         this.$router.push({path: '/enhanceData'});
                     } else {
                         return false;

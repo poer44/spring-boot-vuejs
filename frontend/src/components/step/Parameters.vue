@@ -4,7 +4,7 @@
         <hr/>
         <el-form :model="parametersForm" :rules="rules" ref="parametersForm" label-width="150px" class="form">
             <el-form-item label="网络选择" prop="net">
-                <el-select v-model="parametersForm.net" placeholder="请选择网络">
+                <el-select v-model="parametersForm.nid" placeholder="请选择网络">
                     <el-option
                             v-for="item in netoptions"
                             :key="item.id"
@@ -26,7 +26,7 @@
                 <el-input v-model="parametersForm.gpuid"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('parametersForm')">下一步</el-button>
+                <el-button type="success" @click="submitForm('parametersForm')">开始训练</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -38,29 +38,41 @@
 
     export default {
         data() {
+            //自定义校验规则-是否数字
+            var validatenum = (rule, value, callback) => {
+                if (!value) {
+                    return callback(new Error('该选项不能为空'));
+                }
+                if (Number.isNaN(Number(value))) {
+                    callback(new Error('请输入数字值'));
+                } else {
+                    callback();
+                }
+
+            };
             return {
                 parametersForm: {
-                    net: '',
+                    nid: '',
                     epochs: '',
                     learningrate: '',
                     batch: '',
                     gpuid: '',
                 },
                 rules: {
-                    net: [
+                    nid: [
                         {required: true, message: '请选择网络', trigger: 'blur'}
                     ],
                     epochs: [
-                        {required: true, message: '请填写训练轮数', trigger: 'blur'}
+                        {validator: validatenum, required: true, trigger: 'blur'}
                     ],
                     learningrate: [
-                        {required: true, message: '请填写学习率', trigger: 'blur'}
+                        {validator: validatenum, required: true, trigger: 'blur'}
                     ],
                     batch: [
-                        {required: true, message: '请填写批大小', trigger: 'blur'}
+                        {validator: validatenum, required: true, trigger: 'blur'}
                     ],
                     gpuid: [
-                        {required: true, message: '请填写显卡设备号', trigger: 'blur'}
+                        {validator: validatenum, required: true, trigger: 'blur'}
                     ]
                 },
                 netoptions: []
@@ -70,6 +82,21 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        //存储
+                        this.$store.commit('setmretail', this.parametersForm);
+                        //提交到数据库，开始训练
+                        AXIOS.post(`/mretail/add`,
+                            this.$store.state.mission_details)
+                            .then(response => {
+                                this.$notify({
+                                    title: '模型参数设置成功！',
+                                    message: '即将开始训练。可在 首页-查看日志 查看训练进度',
+                                    type: 'success'
+                                });
+                            })
+                            .catch(e => {
+                                console.error(e);
+                            })
                         this.$router.push({path: '/'});
                     } else {
                         return false;

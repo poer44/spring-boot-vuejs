@@ -3,37 +3,27 @@ package com.meiya.miamodel.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.meiya.miamodel.domain.Datas;
-import com.meiya.miamodel.domain.Mission;
-import com.meiya.miamodel.domain.Net;
-import com.meiya.miamodel.domain.Project;
-import com.meiya.miamodel.repository.DatasRepository;
-import com.meiya.miamodel.repository.MissionRepository;
-import com.meiya.miamodel.repository.NetRepository;
-import com.meiya.miamodel.repository.ProjectRepository;
+import com.meiya.miamodel.domain.*;
+import com.meiya.miamodel.repository.*;
+import com.meiya.miamodel.service.AsyncService;
 import com.meiya.miamodel.socket.LogSocket;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
 @RestController()
 @RequestMapping("/api")
+@Slf4j
 public class QueryController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QueryController.class);
 
 
     @Autowired
@@ -44,6 +34,10 @@ public class QueryController {
     private DatasRepository datasRepository;
     @Autowired
     private NetRepository netRepository;
+    @Autowired
+    private MissionDetailsRepository mretailRepository;
+    @Autowired
+    private AsyncService asyncService;
 
 
     @GetMapping(path = "/project")
@@ -79,6 +73,13 @@ public class QueryController {
         return params.getId();
     }
 
+    @PostMapping(path = "/mretail/add")
+    public @ResponseBody
+    Object addMretail(@Valid @RequestBody MissionDetails params) {
+        int result = mretailRepository.insert(params);
+        return params.getId();
+    }
+
     @GetMapping(path = "/mission/{pid}")
     public @ResponseBody
     List<Mission> getMissionList(@PathVariable("pid") long pid) {
@@ -103,62 +104,7 @@ public class QueryController {
     @GetMapping(path = "/test")
     public @ResponseBody
     void test() throws IOException {
-        Thread thread = new Thread(() -> {
-            CopyOnWriteArraySet<LogSocket> websocket = LogSocket.getWebsocket();
-
-//            Runtime run = Runtime.getRuntime();
-//            String cmd = "    make_image_classifier \\" +
-//                    "            --image_dir /usr/local/tensorflow/flower_photos \\" +
-//                    "            --tfhub_module /usr/local/tensorflow/tfhub_model \\" +
-//                    "            --image_size 224 \\" +
-//                    "            --saved_model_dir /usr/local/tensorflow/20200316 \\" +
-//                    "            --labels_output_file  /usr/local/tensorflow/20200316/class_labels.txt \\" +
-//                    "            --tflite_output_file /usr/local/tensorflow/20200316/new_mobile_model.tflite";
-//            System.out.println(cmd);
-//            Process process = null;
-//            try {
-//                process = run.exec(new String[]{"/bin/sh", "-c", cmd});
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            InputStream in = process.getInputStream();
-//            BufferedReader bs = new BufferedReader(new InputStreamReader(in));
-//            List<String> list = new ArrayList<String>();
-//            String result = null;
-            int i=0;
-            while (true) {
-//                try {
-//                    if (!((result = bs.readLine()) != null)) {
-//                        break;
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                //todo 仅发送ceid
-                for (LogSocket myWebSocket : websocket) {
-                    try {
-                        myWebSocket.sendMessage("测试打日志"+i+"</br>");
-                        i++;
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-//                System.out.println("job result [" + result + "]");
-//                list.add(result);
-//            }
-//            try {
-//                in.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-            }
-//            process.destroy();
-        });
-        thread.start();
+        asyncService.executeAsync();
     }
 
 }
