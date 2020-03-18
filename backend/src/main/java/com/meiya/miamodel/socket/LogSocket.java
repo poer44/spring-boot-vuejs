@@ -1,5 +1,6 @@
 package com.meiya.miamodel.socket;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -14,19 +15,20 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 @ServerEndpoint("/logsocket/{mid}")
 @Component
+@Slf4j
 public class LogSocket {
 
     //存放websocket 的线程安全的无序的集合
     private static CopyOnWriteArraySet<LogSocket> websocket = new CopyOnWriteArraySet<LogSocket>();
 
     private Session session;
-    private String mid;
+    private long mid;
 
-    public String getMid() {
+    public long getMid() {
         return mid;
     }
 
-    public void setMid(String mid) {
+    public void setMid(long mid) {
         this.mid = mid;
     }
 
@@ -50,13 +52,13 @@ public class LogSocket {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("mid") String mid) {
+    public void onOpen(Session session, @PathParam("mid") long mid) {
         this.session = session;
         this.mid = mid;
         websocket.add(this);     //加入set中
         // addOnlineCount();           //在线数加1
         try {
-            sendMessage("连接已建立成功.");
+            sendMessage("连接已建立成功.当前任务id为" + mid);
         } catch (Exception e) {
             System.out.println("IO异常");
         }
@@ -87,8 +89,11 @@ public class LogSocket {
      * 给客户端推送信息
      */
     public void sendMessage(String message) throws IOException {
-        synchronized(session) {
-            this.session.getBasicRemote().sendText(message);
+        log.info("socket发送-mid=" + this.mid + "-session" + this.session);
+        if (session != null) {
+            synchronized (session) {
+                this.session.getBasicRemote().sendText(message);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 <template>
     <div class="maindiv">
         <h2>参数设置</h2>
+        <el-button type="primary" @click="gonni()">超参优化（NNI）</el-button>
         <hr/>
         <el-form :model="parametersForm" :rules="rules" ref="parametersForm" label-width="150px" class="form">
             <el-form-item label="网络选择" prop="net">
@@ -97,11 +98,26 @@
                             .catch(e => {
                                 console.error(e);
                             })
+                        AXIOS.get(`/start_train`, {
+                                params: {
+                                    mid: this.$store.state.mid
+                                }
+                            }
+                        )
+                            .then(response => {
+
+                            })
+                            .catch(e => {
+                                console.error(e);
+                            })
                         this.$router.push({path: '/'});
                     } else {
                         return false;
                     }
                 });
+            },
+            gonni() {
+                window.open("http://" + window.document.domain + ":8045");
             }
         }, mounted() {
             const _this = this;

@@ -102,7 +102,7 @@
                         //处理数据
                         for (let i = 0; i < response.data.length; i++) {
                             response.data[i].hasChildren = false;
-                            response.data[i].id = 'm' + this.resultdata[i].id;
+                            response.data[i].id = 'm' + response.data[i].id;
                         }
                         resolve(response.data)
                     })

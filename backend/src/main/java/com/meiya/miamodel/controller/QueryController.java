@@ -101,10 +101,10 @@ public class QueryController {
     }
 
 
-    @GetMapping(path = "/test")
+    @GetMapping(path = "/start_train")
     public @ResponseBody
-    void test() throws IOException {
-        asyncService.executeAsync();
+    void startTrain(long mid) {
+        asyncService.executeAsync(mid);
     }
 
 }

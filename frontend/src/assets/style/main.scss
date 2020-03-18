@@ -5,6 +5,9 @@
   .form {
     width: 700px;
   }
+  .min-div{
+    min-width: 400px;
+  }
 }
 
 .selector {
@@ -43,5 +46,15 @@
 
 .logdiv {
   height: 400px;
-  overflow: scroll;
+  overflow: auto;
+  span{
+    font-size: 12px;
+  }
+  border: 1px solid rgba(81, 81, 81, 0.14);
+}
+
+.weight_p{
+    color: #1980ff;
+    font-size: 20px;
+    font-weight: bold;
 }
