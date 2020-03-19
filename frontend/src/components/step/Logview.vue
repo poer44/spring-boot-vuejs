@@ -4,12 +4,16 @@
         <hr/>
         <el-row>
             <el-col :span="3" class="min-div">
-                <p class="weight_p">准确率</p>
-                <el-progress type="circle" :percentage="93"></el-progress>
+                <p class="weight_p">准确率accuracy</p>
+                <el-progress type="circle" :percentage="accuracy"></el-progress>
             </el-col>
             <el-col :span="3" class="min-div">
-                <p class="weight_p">回归率</p>
-                <el-progress type="circle" :percentage="86"></el-progress>
+                <p class="weight_p">损失率loss</p>
+                <el-progress type="circle" :percentage="loss"></el-progress>
+            </el-col>
+            <el-col :span="3" class="min-div">
+                <p class="weight_p">进度process</p>
+                <el-progress type="circle" :percentage="process"></el-progress>
             </el-col>
         </el-row>
         <p class="weight_p">日志</p>
@@ -31,6 +35,9 @@
         data() {
             return {
                 text: '',
+                accuracy: 0,
+                loss: 0,
+                process: 0
             }
         },
         mounted() {
@@ -39,9 +46,18 @@
             var ws = new WebSocket('ws://' + window.document.domain + ':8044/logsocket/' + this.$route.params.mid);
             // 响应onmessage事件:
             ws.onmessage = function (msg) {
-                _this.text += msg.data;
+                var jsonstr = JSON.parse(msg.data);
+                if(jsonstr.cmd) {
+                    _this.text += jsonstr.cmd + "<br />";
+                }
+                if(jsonstr.process) {
+                    _this.accuracy = Number.parseInt(Number(jsonstr.accuracy) * 100);
+                    _this.loss = Number.parseInt(Number(jsonstr.loss) * 100);
+                    _this.process = Number.parseInt(Number(jsonstr.process) * 100);
+                }
                 const div = document.getElementsByClassName('logdiv')[0];
-                div.scrollTop = div.scrollHeight;
+                if (div.scrollHeight)
+                    div.scrollTop = div.scrollHeight;
             };
 
         }

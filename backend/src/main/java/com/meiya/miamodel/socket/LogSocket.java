@@ -58,7 +58,7 @@ public class LogSocket {
         websocket.add(this);     //加入set中
         // addOnlineCount();           //在线数加1
         try {
-            sendMessage("连接已建立成功.当前任务id为" + mid);
+            sendMessage("{cmd:\"连接已建立成功.当前任务id为\"" + mid + "}");
         } catch (Exception e) {
             System.out.println("IO异常");
         }
